@@ -1,0 +1,68 @@
+{
+  "name": "snapvault",
+  "version": "1.0.0",
+  "description": "Smart Windows Screenshot Manager with auto-watch, clipboard capture, and system tray integration",
+  "main": "src/main/main.js",
+  "scripts": {
+    "dev": "concurrently -k -s first \"npm run dev:vite\" \"npm run dev:electron\"",
+    "dev:vite": "vite",
+    "dev:electron": "cross-env NODE_ENV=development electron .",
+    "build": "vite build",
+    "start": "electron .",
+    "dist": "npm run build && electron-builder --win",
+    "dist:portable": "npm run build && electron-builder --win portable",
+    "dist:installer": "npm run build && electron-builder --win nsis"
+  },
+  "build": {
+    "appId": "com.snapvault.desktop",
+    "productName": "SnapVault",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "src/main/**/*",
+      "src/preload/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "SnapVault"
+    }
+  },
+  "keywords": [
+    "screenshot",
+    "manager",
+    "windows",
+    "electron",
+    "clipboard",
+    "tray"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chokidar": "^5.0.0",
+    "lucide-react": "^1.46.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^10.0.5",
+    "cross-env": "^10.1.0",
+    "electron": "^44.4.1",
+    "electron-builder": "^26.15.3",
+    "vite": "^8.3.0"
+  }
+}
