@@ -4,7 +4,7 @@
 
 SnapVault runs quietly in the system tray, watches your screenshot folders and the clipboard, and builds a searchable library with tags, notes, favorites and custom groups. A global hotkey brings it up from any app.
 
-<!-- Add a screenshot or GIF here, for example: ![SnapVault gallery](docs/screenshot.png) -->
+![SnapVault gallery](docs/screenshot.png)
 
 > **Platform:** Windows 10 / 11 only.
 
