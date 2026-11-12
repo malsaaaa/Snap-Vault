@@ -1,87 +1,112 @@
 # SnapVault 📸
-> **The Modern Windows Screenshot Manager & Instant Access Vault**
 
-SnapVault is a high-performance Windows desktop application designed to keep all your screenshots organized, searchable, and instantly accessible.
+**A Windows screenshot manager that collects, organizes and searches your screenshots and clipboard snips in one place.**
 
----
+SnapVault runs quietly in the system tray, watches your screenshot folders and the clipboard, and builds a searchable library with tags, notes, favorites and custom groups. A global hotkey brings it up from any app.
 
-## ✨ Features
+<!-- Add a screenshot or GIF here, for example: ![SnapVault gallery](docs/screenshot.png) -->
 
-- 🔍 **Auto-Watch Windows Screenshots**:
-  - Automatically detects and organizes captures from Windows default directory (`Pictures\Screenshots`) taken with `Win + PrtScn` or `PrtScn`.
-  - Supports adding custom watch directories.
-
-- 📋 **Clipboard Snip Auto-Capture**:
-  - Seamlessly captures snipped images from `Win + Shift + S` or the Snipping Tool.
-  - Keeps a historical timeline of all your clips in a dedicated library so you never lose unsaved snips.
-
-- ⚡ **Global Instant Summon (`Ctrl + Shift + S`)**:
-  - Summon or minimize SnapVault from any application or game with a single global hotkey.
-
-- 🗂️ **System Tray Integration**:
-  - Runs quietly in the background without cluttering your taskbar.
-  - Right-click tray menu for quick capture, opening folders, or toggling visibility.
-
-- 🎨 **Glassmorphic Dark UI**:
-  - Tailored dark mode aesthetic with translucent glass surfaces and vibrant glowing badges.
-  - Grouping by **Today**, **Yesterday**, **This Week**, and **Earlier**.
-  - Standard Grid and Compact Grid view toggles.
-
-- 🚀 **One-Click Actions & Drag-and-Drop**:
-  - One-click copy image back to clipboard with instant visual confirmation.
-  - Native Windows file drag: Drag any screenshot directly out of SnapVault into Discord, Slack, Photoshop, or web browsers.
-  - Show directly in Windows Explorer or open in Windows default viewer.
-  - Delete with safe move to Windows Recycle Bin.
-
-- 🔎 **Fast Search, Tags & Notes**:
-  - Instant search (`Ctrl + F`) filtering by filename, custom tags (`#bug`, `#design`, `#receipt`), or custom notes.
-  - Built-in High-Resolution Lightbox Inspector with zoom, pan, and details sidebar.
+> **Platform:** Windows 10 / 11 only.
 
 ---
 
-## 🛠️ Quick Start
+## Features
 
-### 1. Prerequisites
-- **Node.js**: v18+ (tested on Node v22)
-- **Windows 10 / 11**
+**Automatic capture**
+- Watches the Windows screenshot folder (`Pictures\Screenshots`) for captures made with `PrtScn` or `Win + PrtScn`.
+- Watches any extra folders you add in Settings.
+- Detects images copied to the clipboard by `Win + Shift + S` or the Snipping Tool, and saves them to `Pictures\SnapVault` so unsaved snips are not lost.
 
-### 2. Development Mode
-```bash
-# Run both Vite dev server and Electron
-npm run dev
-```
+**Organize and find**
+- Timeline grouped into **Today**, **Yesterday**, **This Week** and **Earlier**.
+- **Favorites**, a **Clipboard** view for captured snips, and your own **groups** with custom names and colors.
+- **Tags** (for example `#bug`, `#design`, `#receipt`) and free-text **notes** on every screenshot.
+- Instant search with `Ctrl + F` across filenames, tags and notes.
+- Standard and compact grid views.
 
-### 3. Production Build & Launch
-```bash
-# Build the React frontend
-npm run build
+**Use your screenshots**
+- Lightbox viewer with zoom, pan, arrow-key navigation and a details panel.
+- One-click copy of an image back to the clipboard.
+- Drag a screenshot straight out of SnapVault into Discord, Slack, Photoshop or a browser.
+- Show in Explorer, or open in the default Windows viewer.
+- Delete sends the file to the Windows Recycle Bin.
 
-# Launch the Electron app in production mode
-npm start
-```
+**Desktop integration**
+- Global hotkey (`Ctrl + Shift + S` by default) to show or hide the window from anywhere.
+- System tray menu: open SnapVault, capture from clipboard, open the screenshots folder, quit.
+- Optional Windows notifications, and an option to minimize to the tray when the window is closed.
+- Dark, frameless window with a glass-style interface.
 
-### 4. Create Windows Executable (`.exe`)
-```bash
-# Generate both Portable and Setup Installer .exe
-npm run dist
-
-# Generate standalone Portable .exe (single file, no install)
-npm run dist:portable
-
-# Generate Setup Installer .exe (with Desktop & Start Menu shortcuts)
-npm run dist:installer
-```
-Your compiled `.exe` files will be saved in the `release/` directory!
-
----
-
-## ⌨️ Shortcuts Reference
+## Keyboard shortcuts
 
 | Shortcut | Action |
 | :--- | :--- |
-| `Ctrl + Shift + S` | Toggle SnapVault window anywhere in Windows |
-| `Win + Shift + S` | Windows Snip (Auto-captured by SnapVault into gallery) |
-| `Win + PrtScn` | Fullscreen Windows capture (Auto-detected in gallery) |
-| `Ctrl + F` | Focus search bar in SnapVault |
-| `Left / Right Arrow` | Navigate previous / next screenshot in Lightbox |
-| `Escape` | Close Lightbox or Settings modal |
+| `Ctrl + Shift + S` | Show or hide SnapVault from any app (default global hotkey) |
+| `Win + Shift + S` | Windows snip, picked up automatically by SnapVault |
+| `Win + PrtScn` | Full-screen Windows capture, picked up automatically |
+| `Ctrl + F` | Focus the search bar |
+| `Left` / `Right` | Previous / next screenshot in the lightbox |
+| `Esc` | Close the lightbox or settings |
+
+Note that `Ctrl + Shift + S` is registered system-wide, so another app that uses the same shortcut may conflict with it.
+
+## Tech stack
+
+- [Electron](https://www.electronjs.org/) for the desktop shell, tray, global hotkey, clipboard and native drag and drop
+- [React](https://react.dev/) 19 and [Vite](https://vitejs.dev/) for the interface
+- [chokidar](https://github.com/paulmillr/chokidar) for folder watching
+- [lucide-react](https://lucide.dev/) for icons
+- [electron-builder](https://www.electron.build/) to produce the NSIS installer and the portable build
+
+## Getting started
+
+**Requirements:** Windows 10 or 11 and Node.js 18 or newer (developed on Node 22).
+
+```bash
+git clone https://github.com/malsaaaa/snap-vault.git
+cd snap-vault
+npm install
+```
+
+| Command | What it does |
+| :--- | :--- |
+| `npm run dev` | Start the Vite dev server and Electron together |
+| `npm run build` | Build the React front end into `dist/` |
+| `npm start` | Launch the built app with Electron |
+| `npm run dist` | Build and package both the installer and the portable `.exe` |
+| `npm run dist:installer` | Package the Setup installer only |
+| `npm run dist:portable` | Package the portable `.exe` only |
+
+Packaged files are written to `release/`.
+
+## Project structure
+
+```
+snap-vault/
+├── src/
+│   ├── main/                  # Electron main process
+│   │   ├── main.js            # Window, tray, hotkey, IPC handlers
+│   │   ├── watcher.js         # Screenshot folder watching
+│   │   ├── clipboard-watcher.js  # Clipboard snip capture
+│   │   └── store.js           # Settings, tags, notes, favorites and groups
+│   ├── preload/preload.js     # Safe bridge exposed to the UI
+│   └── renderer/              # React interface (Vite)
+│       └── src/components/    # Sidebar, grid, lightbox, settings, groups
+├── assets/                    # App icon
+├── scripts/                   # Icon generation helpers
+└── vite.config.mjs
+```
+
+## Data and privacy
+
+- Your screenshots stay where they are as ordinary image files. SnapVault does not upload, sync or send anything over a network.
+- Tags, notes, favorites, groups and settings are stored locally in `snapvault-data.json` in the app's user-data folder.
+- Snips captured from the clipboard are saved to `Pictures\SnapVault`.
+
+## Status
+
+Version 1.0.0, an early release. The app is built and tested on Windows only.
+
+## License
+
+[MIT](LICENSE)
